@@ -1,85 +1,94 @@
-let mike;
-let rotation = 0;
-let score = 0; 
-let speed =3;
-let timeRemaining=15;
-let gameOver = false;
-let success, fail, normal;
-let lastAttempt;
-let gameFont;
+let sprite;
+
 
 function preload(){
-  mike = loadImage("assets/mike.png");
-  gameFont = loadFont("assets/PixelifySans-VariableFont_wght.ttf");
+  sprite = new Sprite(200,200, 80, 80);
+  sprite.spriteSheet = 'assets/cyclopse.png';
+  let animations = {
+    stand: { row: 0, frames: 1}, 
+    walkRight: {row:0, col: 1, frames: 8},
+    walkUp: {row: 5, frames:6},
+    walkDown: {row:5, col: 6, frames: 6}
+  };
+
+  sprite.anis.frameDelay=8;
+  sprite.addAnis(animations);
+  sprite.changeAni('walkRight');
 }
+
 
 function setup(){
   createCanvas(400,400);
-  imageMode(CENTER);
-  angleMode(DEGREES);
-
-  success = color('blue');
-  fail = color('red');
-  normal = color('white');
-  lastAttempt=normal;
-  textFont(gameFont);
+  
 }
 
 function draw(){
-  background(lastAttempt);
-  if(gameOver){
-    gameDone();
-  }else{
-    playing();
+  background(0);
+  if(kb.pressing('d') ){
+    walkRight();
+  }else if(kb.pressing('a') ){
+    walkLeft();
+  }else if(kb.pressing('w')){
+    walkUp();
+  }else if(kb.pressing('s')){
+    walkDown();
+  }
+  else{
+    stop();
+  }
+
+
+  if(sprite.x +sprite.width/4> width){
+    walkLeft();
+
+  }else if (sprite.x -sprite.width/4< 0){
+    walkRight();
   }
   
-  
-
 }
-function playing(){
-  push();
-    translate(width/2, height/2);
-    rotate(rotation+=speed);
-    image(mike, 0,0, mike.width/3, mike.height/3);
-  pop();
-
-  if(rotation >= 360){
-    rotation=0;
-  }
-
-  textSize(16);
-  text("Score: "+ score, 20,20);
-  text("Time: "+ ceil(timeRemaining), width-100,20);
-
-  timeRemaining -= deltaTime/1000;
-  if(timeRemaining <0){
-    lastAttempt = normal;
-    gameOver = true;
-  }
+function stop(){
+  sprite.vel.x=0;
+  sprite.vel.y=0;
+  sprite.changeAni('stand');
+}
+function walkLeft(){
+  sprite.changeAni('walkRight');
+  sprite.vel.x = -1;
+  sprite.scale.x = -1;
+  sprite.vel.y = 0;
 }
 
-function gameDone(){
-  text("Time's Up!", 100,100);
-  text("Score: "+score, 100, 150);
-  text("Press Space to Play Again", 100, 200);
+function walkRight(){
+  sprite.changeAni('walkRight');
+      sprite.vel.x = 1;
+      sprite.scale.x = 1;
+      sprite.vel.y = 0;
 }
 
-function keyTyped(){
+function walkUp(){
+  sprite.changeAni('walkUp');
+      sprite.vel.y = -1;
+      sprite.vel.x = 0;
+}
 
-  if(key === ' '){ //have to be same type
-    if(gameOver){
-      timeRemaining = 15;
-      score = 0;
-      gameOver = false;
-    }else{
-      if(rotation >= 360 || rotation <= 10){
-        score++;
-        lastAttempt = success;
-      }else{
-        score--;
-        lastAttempt = fail;
-      }
+function walkDown(){
+  sprite.changeAni('walkDown');
+      sprite.vel.y = 1;
+      sprite.vel.x = 0;
     }
-    
+
+function keyTypedOld(){
+  switch(key){
+    case 'd':
+      walkRight();
+      break;
+    case 'a':
+      walkLeft();
+      break;
+    case 'w':
+      walkUp();
+      break;
+    case 's':
+      walkDown();
   }
 }
