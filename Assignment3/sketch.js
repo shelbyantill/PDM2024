@@ -14,13 +14,9 @@ function preload(){
   };
 
   characters.push(new Character(200,200, 80, 80, "assets/SpelunkyGuy.png", animations));
-  characters.push( new Character(300,200, 80, 80, "assets/Green.png", animations)); 
-  characters.push(new Character(400,200, 80, 80, "assets/Cyclops.png", animations));
-  
+  characters.push( new Character(200,200, 80, 80, "assets/Green.png", animations)); 
+  characters.push(new Character(200,200, 80, 80, "assets/Cyclops.png", animations));
 
-  
-
-  
 }
 
 
