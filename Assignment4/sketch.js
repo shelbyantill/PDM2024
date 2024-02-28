@@ -56,11 +56,11 @@ function draw() {
       }else if(bug.x -bug.width/4< 0){
         moveRight(bug);
       }
-      else if(bug.y +bug.height/4 >height){
+      else if(bug.y +bug.height/4 +50>height){
         moveTop(bug);
       }
-     else if(bug.y - bug.height/ 4< 0){
-      moveBot(bug);
+     else if(bug.y - bug.height/ 4  < 0){
+         moveBot(bug);
       }
     });
 
