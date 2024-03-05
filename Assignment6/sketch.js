@@ -19,7 +19,7 @@ let notes = {
 function setup() {
   createCanvas(400, 400);
   
-  pitchSlider = createSlider(0, 12, .1, 1);
+  pitchSlider = createSlider(0, 12, .1, .5);
   pitchSlider.position (120,200);
   pitchSlider.mouseMoved(() => {
     bend.pitch = pitchSlider.value();
