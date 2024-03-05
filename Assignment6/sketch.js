@@ -6,20 +6,20 @@ bend.toDestination();
 //connecting synth to effect to destination
 
 let notes = {
-  'a': 'C4',
-  's': 'D4',
-  'd': 'E4',
-  'f': 'f4',
-  'g': 'g4',
-  'h': 'A4',
-  'j': 'B4',
-  'k': 'C5'
+  '1': 'C4',
+  '2': 'D4',
+  '3': 'E4',
+  '4': 'f4',
+  '5': 'g4',
+  '6': 'A4',
+  '7': 'B4',
+  '8': 'C5'
 }
 
 function setup() {
   createCanvas(400, 400);
   
-  pitchSlider = createSlider(0, 12, .1, .5);
+  pitchSlider = createSlider(0, 12, .1, 1.5);
   pitchSlider.position (120,200);
   pitchSlider.mouseMoved(() => {
     bend.pitch = pitchSlider.value();
@@ -29,7 +29,7 @@ function setup() {
 
 function draw() {
   background(250, 30, 200);
-  text("Play A through K and bend pitch with slider.", 75, 150)
+  text("Play 1 through 8 and bend pitch with slider.", 75, 150)
 }
 
 
